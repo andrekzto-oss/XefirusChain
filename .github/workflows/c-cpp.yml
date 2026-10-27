@@ -1,0 +1,21 @@
+name: Compilar Xefirus Chain (Windows)
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Configurar CMake
+      run: cmake -B build
+    - name: Compilar VST3
+      run: cmake --build build --config Release
+    - name: Entregar VST3
+      uses: actions/upload-artifact@v3
+      with:
+        name: XefirusChain_VST3_Windows
+        path: build/XefirusChain_artefacts/Release/VST3/
